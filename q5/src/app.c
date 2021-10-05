@@ -17,6 +17,7 @@ int main (void)
   {
     printa_menu();
     scanf("%i", &op);
+    setbuf(stdin, NULL);
 
     switch (op)
     {
@@ -52,7 +53,8 @@ int main (void)
       if (isCriado) 
       {
         printf("string: ");
-        scanf("%s", string);
+        scanf("%[^\n]", string);
+        setbuf(stdin, NULL);
         if ( insere_ini(d, string) )
         {
           printf("\ninserida com sucesso\n\n");
@@ -70,7 +72,8 @@ int main (void)
       if (isCriado)
       {
         printf("string: ");
-        scanf("%s", string);
+        scanf("%[^\n]", string);
+        setbuf(stdin, NULL);
         if ( insere_fim(d, string) )
         {
           printf("\ninserida com sucesso\n\n");
@@ -109,6 +112,14 @@ int main (void)
     case 6:
       if (isCriado)
       {
+        if (remove_fim(d, string))
+        {
+          printf("\nremovido com sucesso\n\n");
+        }
+        else
+        {
+          printf("\nfalha ao remover\n\n");
+        }
       }
       else
       {
@@ -120,6 +131,8 @@ int main (void)
     case 7:
       if (isCriado)
       {
+        esvazia_deque(d);
+        printf("deque esvaziado\n");
       }
       else
       {
@@ -131,6 +144,9 @@ int main (void)
     case 8:
       if (isCriado)
       {
+        apaga_deque(&d); // o ponteiro e o da aplicacao e tem a flag
+        isCriado = 0;
+        printf("Deque apagado!\n");
       }
       else
       {

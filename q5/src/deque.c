@@ -75,5 +75,33 @@ int remove_ini(Deque d, char *elem)
 // remover no final é decrementar o fim
 int remove_fim(Deque d, char *elem)
 {
+  if (deque_vazio(d))
+  {
+    return 0;
+  }
 
+  // se for no inicio do vetor, novo fim eh o ultimo elemento,
+  // se nao eh o anterior
+  if (d->fim == 0) 
+    d->fim = MAX_ELEMS-1;
+  else
+    d->fim -= 1;
+
+  strcpy( elem, d->no[d->fim]);    // retorno impl
+  return 1;
+}
+
+int esvazia_deque (Deque d) 
+{
+  d->ini = 0;
+  d->fim = 0;
+  return 1;
+}
+
+int apaga_deque (Deque *d) 
+{
+  free(*d);
+  *d = NULL;
+
+  return 1;
 }
