@@ -19,13 +19,15 @@ int main (void)
 
     switch (base)
     {
+      // binário
       case 'B':
         while (num > 0)
         {
-          int resto = num % 2;
-          push(p, resto);
-          num = num / 2;
+          int resto = num % 2; // o resto da divisão por 2 é exatamente o algarismo mais a direita
+          push(p, resto); 
+          num = num / 2;       // divide o numero por 2 e o restante deve ser dividido até que não haja mais resto
         }
+
         printf("numero convertido: ");
         while (!pilha_vazia(p))
         {
