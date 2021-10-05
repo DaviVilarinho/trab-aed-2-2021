@@ -65,33 +65,15 @@ int main (void)
         {
           int printar;
           pop(p, &printar);
-          if (printar < 10)
+          switch(printar) 
           {
-            printf("%i", printar);
-          }
-          if (printar == 10)
-          {
-            printf("A");
-          }
-          if (printar == 11)
-          {
-            printf("B");
-          }
-          if (printar == 12)
-          {
-            printf("C");
-          }
-          if (printar == 13)
-          {
-            printf("D");
-          }
-          if (printar == 14)
-          {
-            printf("E");
-          }
-          if (printar == 15)
-          {
-            printf("F");
+            case 10: printf("A"); break;
+            case 11: printf("B"); break;
+            case 12: printf("C"); break;
+            case 13: printf("D"); break;
+            case 14: printf("E"); break;
+            case 15: printf("F"); break;
+            default: printf("%i", printar);
           }
         }
         printf("\n\n");
