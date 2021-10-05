@@ -7,9 +7,10 @@ void printa_deque (Deque d);
 
 int main (void)
 {
-  Deque d = cria_deque();
+  Deque d;
 
   int op = 0;
+  int isCriado = 0;
   char string[MAX_CHAR_STR];
 
   do
@@ -19,39 +20,119 @@ int main (void)
 
     switch (op)
     {
+    // criar deque
     case 1:
-      printf("\n");
-      printa_deque(d);
-      printf("\n");
+      d = cria_deque();
+      if (d != NULL) {
+        isCriado = 1;
+        printf("deque criado\n");
+      } 
+      else 
+      {
+        printf("deque nao foi criado...\n");
+      }
+      break;
+
+    // printar deque
+    case 2:
+      if (isCriado) 
+      {
+        printf("\n");
+        printa_deque(d);
+        printf("\n");
+      } 
+      else 
+      {
+        printf("nao ha deque... nada a printar\n");
+      }
       break;
     
-    case 2:
-      printf("string: ");
-      scanf("%s", string);
-      if ( insere_fim(d, string) )
-      {
-        printf("\ninserida com sucesso\n\n");
-        break;
-      }
-      else
-      {
-        printf("\nfalha ao inserir\n\n");
-        break;
-      }
-
+    // insere ini
     case 3:
-      if (remove_ini(d, string))
+      if (isCriado) 
       {
-        printf("\nremovido com sucesso\n\n");
-        break;
+        printf("string: ");
+        scanf("%s", string);
+        if ( insere_fim(d, string) )
+        {
+          printf("\ninserida com sucesso\n\n");
+        }
+        else
+        {
+          printf("\nfalha ao inserir\n\n");
+        }
+      } 
+      else 
+      {
+          printf("nao e possivel inserir sem deque\n");
+      }
+
+      break;
+
+    // insere fim
+    case 4:
+      if (isCriado)
+      {
       }
       else
       {
-        printf("\nfalha ao remover\n\n");
-        break;
+        printf("nao e possivel inserir sem deque\n");
       }
+      break;
 
-    case 4:
+    // remove inicio
+    case 5: 
+      if (isCriado) 
+      {
+        if (remove_ini(d, string))
+        {
+          printf("\nremovido com sucesso\n\n");
+        }
+        else
+        {
+          printf("\nfalha ao remover\n\n");
+        }
+      } 
+      else 
+      {
+        printf("nao e possivel remover sem deque\n");
+      }
+      break;
+
+    // remove fim
+    case 6:
+      if (isCriado)
+      {
+      }
+      else
+      {
+        printf("nao e possivel remover sem deque\n");
+      }
+      break;
+
+    // esvaziar
+    case 7:
+      if (isCriado)
+      {
+      }
+      else
+      {
+        printf("nao e possivel esvaziar sem deque\n");
+      }
+      break;
+
+    // apagar
+    case 8:
+      if (isCriado)
+      {
+      }
+      else
+      {
+        printf("nao e possivel apagar sem deque\n");
+      }
+      break;
+
+    case 0:
       printf("\nadeus\n");
       break;
     default:
@@ -63,9 +144,14 @@ int main (void)
 
 void printa_menu ()
 {
-  printf("[1] imprimir fila\n");
-  printf("[2] inserir string\n");
-  printf("[3] remover string\n");
+  printf("[1] criar deque\n");
+  printf("[2] imprimir deque\n");
+  printf("[3] inserir string inicio\n");
+  printf("[4] inserir string fim\n");
+  printf("[5] remover string inicio\n");
+  printf("[6] remover string fim\n");
+  printf("[7] esvaziar\n");
+  printf("[8] apagar\n");
   printf("[0] sair\n");
   printf("escolha: ");
 }
@@ -87,7 +173,7 @@ void printa_deque (Deque d)
     insere_fim(aux,printar);
   }
 
-  while (!fila_vazia(aux))
+  while (!deque_vazio(aux))
   {
     remove_ini(aux,printar);
     printf("%s\n",printar);
