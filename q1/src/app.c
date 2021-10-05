@@ -17,15 +17,45 @@ int main (void)
     scanf("%i", &num);
     setbuf(stdin, NULL);
 
+    if (num == 0 && (
+        base == 'B' ||
+        base == 'O' || 
+        base == 'H' 
+        ))
+    {
+      /* 
+       * se for 0, os algoritmos falham porque são baseados 
+       * no resto de divisão, que para valores maiores que 0,
+       * representaria o fim da iteração
+       */
+      printf("numero convertido: 0\n\n"); 
+      continue;
+    }
+
+    /*
+     * O funcionamento de todos são iguais
+     *
+     * encontrar o resto da divisão do número pela base e 
+     * adicionar à pilha (número + a esquerda primeiro), 
+     * sendo o novo número a divisão por 2
+     * até que o número a resolver seja 0.
+     *
+     * Dessa forma, encontra-se o número mais a direita,
+     * e a estrutura de pilha funciona bem -> os elementos são inseridos 
+     * da direita pra esquerda 
+     *
+     * exemplo: 7, b=2 -> 7%2 = 1, (7/2=3)%2 = 1 -> (3/2=1)%2 = 1 (1/2 = 0)%2 = 0
+     *                       0111
+     */
     switch (base)
     {
       // binário
       case 'B':
         while (num > 0)
         {
-          int resto = num % 2; // o resto da divisão por 2 é exatamente o algarismo mais a direita
+          int resto = num % 2;
           push(p, resto); 
-          num = num / 2;       // divide o numero por 2 e o restante deve ser dividido até que não haja mais resto
+          num = num / 2;      
         }
 
         printf("numero convertido: ");
