@@ -65,7 +65,34 @@ int main (void)
       {
         int printar;
         pop(p, &printar);
-        printf("%i", printar);
+        if (printar < 10)
+        {
+          printf("%i", printar);
+        }
+        if (printar == 10)
+        {
+          printf("A");
+        }
+        if (printar == 11)
+        {
+          printf("B");
+        }
+        if (printar == 12)
+        {
+          printf("C");
+        }
+        if (printar == 13)
+        {
+          printf("D");
+        }
+        if (printar == 14)
+        {
+          printf("E");
+        }
+        if (printar == 15)
+        {
+          printf("F");
+        }
       }
       printf("\n\n");
       break;
