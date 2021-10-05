@@ -17,6 +17,7 @@ int main (void)
   {
     printa_menu();
     scanf("%i", &op);
+    setbuf(stdin, NULL);
 
     switch (op)
     {
@@ -52,14 +53,11 @@ int main (void)
       if (isCriado) 
       {
         printf("string: ");
-        scanf("%s", string);
-        if ( insere_fim(d, string) )
+        scanf("%[^\n]", string);
+        setbuf(stdin, NULL);
+        if ( insere_ini(d, string) )
         {
           printf("\ninserida com sucesso\n\n");
-        }
-        else
-        {
-          printf("\nfalha ao inserir\n\n");
         }
       } 
       else 
@@ -73,6 +71,17 @@ int main (void)
     case 4:
       if (isCriado)
       {
+        printf("string: ");
+        scanf("%[^\n]", string);
+        setbuf(stdin, NULL);
+        if ( insere_fim(d, string) )
+        {
+          printf("\ninserida com sucesso\n\n");
+        }
+        else
+        {
+          printf("\nfalha ao inserir\n\n");
+        }
       }
       else
       {
@@ -103,6 +112,14 @@ int main (void)
     case 6:
       if (isCriado)
       {
+        if (remove_fim(d, string))
+        {
+          printf("\nremovido com sucesso\n\n");
+        }
+        else
+        {
+          printf("\nfalha ao remover\n\n");
+        }
       }
       else
       {
@@ -114,6 +131,8 @@ int main (void)
     case 7:
       if (isCriado)
       {
+        esvazia_deque(d);
+        printf("deque esvaziado\n");
       }
       else
       {
@@ -125,6 +144,9 @@ int main (void)
     case 8:
       if (isCriado)
       {
+        apaga_deque(&d); // o ponteiro e o da aplicacao e tem a flag
+        isCriado = 0;
+        printf("Deque apagado!\n");
       }
       else
       {
@@ -160,7 +182,7 @@ void printa_deque (Deque d)
 {
   if(deque_vazio(d))
   {
-    printf("\nlista vazia!\n");
+    printf("\ndeque vazio!\n");
   }
 
   Deque aux = cria_deque();
