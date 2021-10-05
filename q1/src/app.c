@@ -19,87 +19,87 @@ int main (void)
 
     switch (base)
     {
-    case 'B':
-      while (num > 0)
-      {
-        int resto = num % 2;
-        push(p, resto);
-        num = num / 2;
-      }
-      printf("numero convertido: ");
-      while (!pilha_vazia(p))
-      {
-        int printar;
-        pop(p, &printar);
-        printf("%i", printar);
-      }
-      printf("\n\n");
-      break;
-    
-    case 'O':
-      while (num > 0)
-      {
-        int resto = num % 8;
-        push(p, resto);
-        num = num / 8;
-      }
-      printf("numero convertido: ");
-      while (!pilha_vazia(p))
-      {
-        int printar;
-        pop(p, &printar);
-        printf("%i", printar);
-      }
-      printf("\n\n");
-      break;
-    
-    case 'H':
-      while (num > 0)
-      {
-        int resto = num % 16;
-        push(p, resto);
-        num = num / 16;
-      }
-      printf("numero convertido: ");
-      while (!pilha_vazia(p))
-      {
-        int printar;
-        pop(p, &printar);
-        if (printar < 10)
+      case 'B':
+        while (num > 0)
         {
+          int resto = num % 2;
+          push(p, resto);
+          num = num / 2;
+        }
+        printf("numero convertido: ");
+        while (!pilha_vazia(p))
+        {
+          int printar;
+          pop(p, &printar);
           printf("%i", printar);
         }
-        if (printar == 10)
+        printf("\n\n");
+        break;
+      
+      case 'O':
+        while (num > 0)
         {
-          printf("A");
+          int resto = num % 8;
+          push(p, resto);
+          num = num / 8;
         }
-        if (printar == 11)
+        printf("numero convertido: ");
+        while (!pilha_vazia(p))
         {
-          printf("B");
+          int printar;
+          pop(p, &printar);
+          printf("%i", printar);
         }
-        if (printar == 12)
+        printf("\n\n");
+        break;
+      
+      case 'H':
+        while (num > 0)
         {
-          printf("C");
+          int resto = num % 16;
+          push(p, resto);
+          num = num / 16;
         }
-        if (printar == 13)
+        printf("numero convertido: ");
+        while (!pilha_vazia(p))
         {
-          printf("D");
+          int printar;
+          pop(p, &printar);
+          if (printar < 10)
+          {
+            printf("%i", printar);
+          }
+          if (printar == 10)
+          {
+            printf("A");
+          }
+          if (printar == 11)
+          {
+            printf("B");
+          }
+          if (printar == 12)
+          {
+            printf("C");
+          }
+          if (printar == 13)
+          {
+            printf("D");
+          }
+          if (printar == 14)
+          {
+            printf("E");
+          }
+          if (printar == 15)
+          {
+            printf("F");
+          }
         }
-        if (printar == 14)
-        {
-          printf("E");
-        }
-        if (printar == 15)
-        {
-          printf("F");
-        }
-      }
-      printf("\n\n");
-      break;
+        printf("\n\n");
+        break;
 
-    default:
-      printf("\nbase invalida\n\n");
-      break;
+      default:
+        printf("\nbase invalida\n\n");
+        break;
     }
   } while (num >= 0);
   printf("\nadeus\n");
