@@ -52,9 +52,22 @@ int main (void)
       }
       printf("\n\n");
       break;
-      break;
     
     case 'H':
+      while (num > 0)
+      {
+        int resto = num % 16;
+        push(p, resto);
+        num = num / 16;
+      }
+      printf("numero convertido: ");
+      while (!pilha_vazia(p))
+      {
+        int printar;
+        pop(p, &printar);
+        printf("%i", printar);
+      }
+      printf("\n\n");
       break;
 
     default:
