@@ -9,7 +9,7 @@ int main (void)
 
   do
   {
-    printf("base a ser convertido: ");
+    printf("base a ser convertido (B-binário O-octadecimal H-hexadecimal): ");
     scanf("%c", &base);
     setbuf(stdin, NULL);
     
