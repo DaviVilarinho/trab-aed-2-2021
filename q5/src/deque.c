@@ -31,6 +31,11 @@ int deque_cheio(Deque d)
   return ( d->ini == ( (d->fim+1) % MAX_ELEMS ) );
 }
 
+int insere_inicio(Deque d, char *elem)
+{
+  
+}
+
 int insere_fim(Deque d, char *elem)
 {
   if (deque_cheio(d))
@@ -53,4 +58,9 @@ int remove_ini(Deque d, char *elem)
   strcpy( elem, d->no[d->ini]); // retorno impl
   d->ini = (d->ini+1) % MAX_ELEMS; // incremento circular
   return 1;
+}
+
+int remove_fim(Deque d, char *elem)
+{
+
 }
