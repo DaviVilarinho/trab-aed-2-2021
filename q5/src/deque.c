@@ -31,6 +31,23 @@ int deque_cheio(Deque d)
   return ( d->ini == ( (d->fim+1) % MAX_ELEMS ) );
 }
 
+// inserir inicio provoca decrementar inicio
+int insere_ini(Deque d, char *elem)
+{
+  if (deque_cheio(d)) // deque cheio nao se insere
+    return 0;
+
+  // decremento circular
+  if (d->ini == 0)
+    d->ini = MAX_ELEMS - 1;
+  else
+    d->ini -= 1;
+
+  strcpy(d->no[d->ini], elem); 
+
+  return 1;
+}
+
 int insere_fim(Deque d, char *elem)
 {
   if (deque_cheio(d))
@@ -52,5 +69,39 @@ int remove_ini(Deque d, char *elem)
 
   strcpy( elem, d->no[d->ini]); // retorno impl
   d->ini = (d->ini+1) % MAX_ELEMS; // incremento circular
+  return 1;
+}
+
+// remover no final é decrementar o fim
+int remove_fim(Deque d, char *elem)
+{
+  if (deque_vazio(d))
+  {
+    return 0;
+  }
+
+  // se for no inicio do vetor, novo fim eh o ultimo elemento,
+  // se nao eh o anterior
+  if (d->fim == 0) 
+    d->fim = MAX_ELEMS-1;
+  else
+    d->fim -= 1;
+
+  strcpy( elem, d->no[d->fim]);    // retorno impl
+  return 1;
+}
+
+int esvazia_deque (Deque d) 
+{
+  d->ini = 0;
+  d->fim = 0;
+  return 1;
+}
+
+int apaga_deque (Deque *d) 
+{
+  free(*d);
+  *d = NULL;
+
   return 1;
 }
