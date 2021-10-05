@@ -26,9 +26,11 @@ fila_p cria_fila() {
   return nova_fila;
 }
 
+int tamanho(fila_p fila) {
+  return fila->cont;
+}
+
 int fila_vazia(fila_p fila){
-  if (fila == NULL)
-    return 0;
   if (fila->cont == 0)
     return 1;
   else
@@ -36,8 +38,6 @@ int fila_vazia(fila_p fila){
 }
 
 int fila_cheia(fila_p fila) {
-  if (fila == NULL)
-    return 0;
   if (fila->cont == MAX) 
     return 1;
   else
@@ -45,9 +45,6 @@ int fila_cheia(fila_p fila) {
 }
 
 int insere_fim(fila_p fila, aluno_t inserir) {
-  if (fila == NULL)
-    return 0;
-
   if (fila_cheia(fila) == 1)
     return 0;
 
@@ -58,9 +55,6 @@ int insere_fim(fila_p fila, aluno_t inserir) {
 }
 
 int remove_ini(fila_p fila, aluno_t *removido) {
-  if (fila == NULL)
-    return 0;
-
   if (fila_vazia(fila))
     return 0;
 
@@ -72,9 +66,6 @@ int remove_ini(fila_p fila, aluno_t *removido) {
 }
 
 int libera_fila(fila_p *fila) {
-  if (*fila == NULL)
-    return 0;
-
   free(*fila);
   *fila = NULL;
 
