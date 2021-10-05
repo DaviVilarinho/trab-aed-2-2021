@@ -31,9 +31,10 @@ int deque_cheio(Deque d)
   return ( d->ini == ( (d->fim+1) % MAX_ELEMS ) );
 }
 
+// inserir inicio provoca decrementar inicio
 int insere_inicio(Deque d, char *elem)
 {
-  
+   
 }
 
 int insere_fim(Deque d, char *elem)
@@ -60,6 +61,7 @@ int remove_ini(Deque d, char *elem)
   return 1;
 }
 
+// remover no final é decrementar o fim
 int remove_fim(Deque d, char *elem)
 {
 
