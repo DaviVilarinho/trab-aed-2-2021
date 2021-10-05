@@ -12,7 +12,7 @@
 struct fila {
   int cont;
   int ini;
-  aluno_t conteudo[MAX];
+  carro_t conteudo[MAX];
 };
 
 fila_p cria_fila() {
@@ -44,7 +44,7 @@ int fila_cheia(fila_p fila) {
     return 0;
 }
 
-int insere_fim(fila_p fila, aluno_t inserir) {
+int insere_fim(fila_p fila, carro_t inserir) {
   if (fila_cheia(fila) == 1)
     return 0;
 
@@ -54,7 +54,7 @@ int insere_fim(fila_p fila, aluno_t inserir) {
   return 1;
 }
 
-int remove_ini(fila_p fila, aluno_t *removido) {
+int remove_ini(fila_p fila, carro_t *removido) {
   if (fila_vazia(fila))
     return 0;
 
@@ -70,4 +70,14 @@ int libera_fila(fila_p *fila) {
   *fila = NULL;
 
   return 1; 
+}
+
+int get_ini(fila_p fila, carro_t *ini_copia) {
+  if (fila_vazia(fila))
+    return 0; 
+
+  // não é o caso lista vazia então
+  *ini_copia = fila->conteudo[fila->ini];
+
+  return 1;
 }
