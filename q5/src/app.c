@@ -72,18 +72,18 @@ void printa_menu ()
 
 void printa_deque (Deque d)
 {
-  if(fila_vazia(f))
+  if(deque_vazio(d))
   {
     printf("\nlista vazia!\n");
   }
 
-  Fila aux = cria_fila();
+  Deque aux = cria_deque();
 
   char printar[MAX_CHAR_STR];
 
-  while (!fila_vazia(f))
+  while (!deque_vazio(d))
   {
-    remove_ini(f,printar);
+    remove_ini(d,printar);
     insere_fim(aux,printar);
   }
 
@@ -91,6 +91,6 @@ void printa_deque (Deque d)
   {
     remove_ini(aux,printar);
     printf("%s\n",printar);
-    insere_fim(f,printar);
+    insere_fim(d,printar);
   }
 }
