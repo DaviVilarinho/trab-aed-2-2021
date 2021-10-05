@@ -76,4 +76,6 @@ int main (void)
     }
   } while (num >= 0);
   printf("\nadeus\n");
+
+  return 0;
 }
