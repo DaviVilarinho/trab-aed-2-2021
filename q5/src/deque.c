@@ -32,9 +32,20 @@ int deque_cheio(Deque d)
 }
 
 // inserir inicio provoca decrementar inicio
-int insere_inicio(Deque d, char *elem)
+int insere_ini(Deque d, char *elem)
 {
-   
+  if (deque_cheio(d)) // deque cheio nao se insere
+    return 0;
+
+  // decremento circular
+  if (d->ini == 0)
+    d->ini = MAX_ELEMS - 1;
+  else
+    d->ini -= 1;
+
+  strcpy(d->no[d->ini], elem); 
+
+  return 1;
 }
 
 int insere_fim(Deque d, char *elem)

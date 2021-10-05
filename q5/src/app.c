@@ -53,13 +53,9 @@ int main (void)
       {
         printf("string: ");
         scanf("%s", string);
-        if ( insere_fim(d, string) )
+        if ( insere_ini(d, string) )
         {
           printf("\ninserida com sucesso\n\n");
-        }
-        else
-        {
-          printf("\nfalha ao inserir\n\n");
         }
       } 
       else 
@@ -73,6 +69,16 @@ int main (void)
     case 4:
       if (isCriado)
       {
+        printf("string: ");
+        scanf("%s", string);
+        if ( insere_fim(d, string) )
+        {
+          printf("\ninserida com sucesso\n\n");
+        }
+        else
+        {
+          printf("\nfalha ao inserir\n\n");
+        }
       }
       else
       {
@@ -160,7 +166,7 @@ void printa_deque (Deque d)
 {
   if(deque_vazio(d))
   {
-    printf("\nlista vazia!\n");
+    printf("\ndeque vazio!\n");
   }
 
   Deque aux = cria_deque();
