@@ -1,7 +1,12 @@
+#ifndef TIME_INCLUIDA
+#define TIME_INCLUIDA
+#include <time.h>
+#endif
+
 struct carro {
   char placa[8];
   char tipo_servico;
-  int hora_entrada;
+  struct tm hora;
 };
 
 typedef struct carro carro_t;
