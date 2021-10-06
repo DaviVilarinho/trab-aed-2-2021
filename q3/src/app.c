@@ -5,7 +5,9 @@
 #endif
 #include <stdio.h>
 #include <time.h>
-#define NUMERO_BOXES 5
+#include <unistd.h>
+#define NUMERO_BOXES 6 // 6 porque o de espera é o 0
+#define BOX_ESPERA   0 
 
 void print_menu();
 void print_carro(carro_t carro);
@@ -25,6 +27,24 @@ int main (void) {
 
       // entrada
       case 1:
+        // leitura do carro
+        carro_t inserindo;
+        scanf("%[^\n]", inserindo.placa); setbuf(stdin, NULL);
+        scanf("%c", &inserindo.tipo_servico); setbuf(stdin, NULL);
+
+        // leitura do tempo
+        time_t timer;
+        struct tm *tempo_agora; 
+        time(&timer);
+        tempo_agora = gmtime(&timer);
+        inserindo.hora = *tempo_agora;
+
+        print_carro(inserindo);
+        sleep(1);
+        print_carro(inserindo);
+        sleep(1);
+        print_carro(inserindo);
+
         break;
 
       // saida
@@ -35,23 +55,26 @@ int main (void) {
       case 3: 
 
         for (int i = 0; i < NUMERO_BOXES; i++) {
+          if (i == BOX_ESPERA) printf("BOX DE ESPERA: ");
+          else printf("BOX %i: ", i);
+
           if (boxes[i] == NULL) {printf("ERRO: ALOCAÇÃO PARA BOX %i impossível\n", i); continue;} // verifica se fila está ainda íntegre
           fila_p temp = cria_fila();
           if (temp == NULL) {printf("ERRO: ALOCAÇÃO PARA BOX TEMPORÁRIO (para %i) impossível\n", i); continue;} // verifica se foi possível alocar
           carro_t carro_temp;
 
-          while (fila_vazia(boxes[i]) != 0) {
+          while (fila_vazia(boxes[i]) != 1) {
             remove_ini(boxes[i], &carro_temp);
             insere_fim(temp, carro_temp);
           }
 
-          while (fila_vazia(temp) != 0) {
+          while (fila_vazia(temp) != 1) {
             remove_ini(temp, &carro_temp);
             print_carro(carro_temp);
             insere_fim(boxes[i], carro_temp);
-
           }
-
+          
+          printf("\n");
         }
         break;
         
@@ -75,5 +98,15 @@ void print_menu() {
 }
 
 void print_carro(carro_t printar) {
-  printf("{placa: %s, tipo: %c, hora_chegada: %i-%i-%i - %i:%i}", printar.placa, printar.tipo_servico, printar.hora.tm_yday, printar.hora.tm_mon, printar.hora.tm_year, printar.hora.tm_hour, printar.hora.tm_min);
+  time_t timer; time(&timer);
+
+  time_t hora_do_carro = mktime(&(printar.hora));
+
+  double tempo_transcorrido = difftime(timer, hora_do_carro);
+
+  printf("{placa: %s, tipo: %c, tempo-transcorrido (s): %.2lf}", 
+      printar.placa, 
+      printar.tipo_servico,
+      tempo_transcorrido
+  );
 }
