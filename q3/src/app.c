@@ -34,16 +34,8 @@ int main (void) {
 
         // leitura do tempo
         time_t timer;
-        struct tm *tempo_agora; 
         time(&timer);
-        tempo_agora = gmtime(&timer);
-        inserindo.hora = *tempo_agora;
-
-        print_carro(inserindo);
-        sleep(1);
-        print_carro(inserindo);
-        sleep(1);
-        print_carro(inserindo);
+        inserindo.hora = timer;
 
         break;
 
@@ -100,9 +92,7 @@ void print_menu() {
 void print_carro(carro_t printar) {
   time_t timer; time(&timer);
 
-  time_t hora_do_carro = mktime(&(printar.hora));
-
-  double tempo_transcorrido = difftime(timer, hora_do_carro);
+  double tempo_transcorrido = difftime(timer, printar.hora);
 
   printf("{placa: %s, tipo: %c, tempo-transcorrido (s): %.2lf}", 
       printar.placa, 
