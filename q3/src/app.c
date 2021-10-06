@@ -1,3 +1,8 @@
+/*
+ * TODO:
+ *  - PRINTA CARRO VERIFICA PRECO
+ *  - RETIRAR VEICULO
+ */
 #include "fila.h"
 #ifndef STDLIB_INCLUIDA
 #include <stdlib.h>
