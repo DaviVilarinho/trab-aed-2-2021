@@ -2,7 +2,7 @@
 #ifndef STDLIB_INCLUIDA
 #define STDLIB_INCLUIDA
 #include <stdlib.h>
-#define MAX 1
+#define MAX 10
 #endif
 #ifndef STRING_INCLUIDA
 #define STRING_INCLUIDA
