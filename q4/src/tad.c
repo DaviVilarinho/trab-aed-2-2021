@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "fila.h"
 
 Fila cria_fila ()
@@ -33,55 +34,65 @@ int insere_asc (Fila f, Produto elem)
 
     N -> info = elem; //Preenche campo info
 
-    Produto ini = (f -> ini) -> info;
-    int ano = elem.validade % 10000;
-    int ano2 = ini.validade % 10000;
-    int mes = (elem.validade % 1000000) / 10000;
-    int mes2 = (ini.validade % 1000000) / 10000;
-    int dia = elem.validade / 1000000;
-    int dia2 = ini.validade / 1000000;
+    Fila aux = f;
 
     if (fila_vazia(f) == 1)
         f -> ini = N; //Se fila vazia
     else
     {
-        if (ano2 > ano) // Se o ano do produto do início for maior que o ano de elem
-            N -> prox = f -> ini; // O prox de N aponta para ini
-        else if (ano2 == ano) //Se os anos forem iguais, passamos para os meses
+        while (N != f -> fim) // Enquanto não chegar ao fim da fila
         {
-            if (mes2 > mes) //Se o mes do produto do ini for maior que o mes do elem
-                N -> prox = f -> ini; // O prox de N aponta pra ini
-            else if (mes2 == mes) //Se os meses forem iguais, passamos para os dias
+            Produto ini = (aux -> ini) -> info;
+            int ano = elem.validade % 10000;
+            int ano2 = ini.validade % 10000;
+            int mes = (elem.validade % 1000000) / 10000;
+            int mes2 = (ini.validade % 1000000) / 10000;
+            int dia = elem.validade / 1000000;
+            int dia2 = ini.validade / 1000000;
+
+            if (ano2 > ano) // Se o ano do produto do início for maior que o ano de elem
+                N -> prox = (aux -> ini); // O prox de N aponta para aux
+            else if (ano2 == ano) //Se os anos forem iguais, passamos para os meses
             {
-                if (dia2 > dia || dia2 == dia) //Se os dias forem iguais ou o de ini for maior, podemos colocar o N no lugar de ini
-                    N -> prox = f -> ini; // O prox de N aponta para ini
+                if (mes2 > mes) //Se o mes do produto do ini for maior que o mes do elem
+                    N -> prox = (aux -> ini); // O prox de N aponta pra aux
+                else if (mes2 == mes) //Se os meses forem iguais, passamos para os dias
+                {
+                    if (dia2 > dia || dia2 == dia) //Se os dias forem iguais ou o de aux for maior, podemos colocar o N antes de aux
+                        N -> prox = (aux -> ini); // O prox de N aponta para aux
+                }
             }
-        }
-        else if (ano2 < ano || mes2 < mes || dia2 < dia) // Agora se o elem for maior que ini, então precisamos entrar num loop que encontra seu devido lugar e o acomoda lá
-        {
-            while (N -> prox != (f -> fim) -> prox) // Enquanto não chegar ao fim da fila
-            {
-                
-            }
+            else if (ano2 < ano || mes2 < mes || dia2 < dia) // Agora se o elem for maior que ini, passamos ao prox
+                (aux -> ini) = (aux -> ini) -> prox;
         }
     }
 
     return 1;
 }
 
-int remove_ini (Fila f, Produto *elem)
+int remove_asc (Fila f, Produto *elem, int prioridade)
 {
     if (fila_vazia(f) == 1)
         return 0;
 
-    struct no *aux = f -> ini;
-    *elem = aux -> info;
+    struct no * aux;
+    aux = (struct no *) malloc(sizeof(struct no));
+    aux = f -> ini;
 
+    for (int i = 0; i < prioridade; i++) //pega o no na prioridade desejada
+        aux = aux -> prox;
+
+    if (aux = NULL)
+        return 0;
+    else
+        *elem = aux -> info; //retorna valor do elem
+
+    //verifica se a fila tem um no
     if (f -> ini == f -> fim)
         f -> fim = NULL;
 
-    f -> ini = aux -> prox;
-    free (aux);
+    f -> ini = aux -> prox; //retira 1 no da fila
+    free (aux); //free na memoria
     return 1;
 }
 
