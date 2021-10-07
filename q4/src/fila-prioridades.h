@@ -6,20 +6,9 @@ struct produtos
     int validade;
 };
 
-struct fila
-{
-    struct no *ini, *fim;
-};
-
 typedef struct produtos Produto;
 typedef struct fila * Fila;
 
-struct no
-{
-    Produto info;
-    struct no *prox;
-    int contador;
-};
 
 Fila cria_fila ();
 
