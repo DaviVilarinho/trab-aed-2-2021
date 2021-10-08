@@ -16,10 +16,11 @@
 #define BOX_ESPERA        0 
 
 int nao_percorridos(int tamanhos[]);
+double calcula_quanto_pagar(double tempo_transcorrido);
 void print_menu();
 void print_carro(carro_t carro);
 int insere_no_melhor_box(fila_p boxes[], carro_t inserir, int isFilaDeEspera); 
-  // >0 -> inseriu (em qual box entrou), -1 -> fila de espera, 0 -> nao inseriu
+// >0 -> inseriu (em qual box entrou), -1 -> fila de espera, 0 -> nao inseriu
 
 int main (void) {
   fila_p boxes[NUMERO_BOXES];
@@ -97,17 +98,11 @@ int main (void) {
                 print_carro(removendo);
                 printf("\n");
 
-                // calculo de quanto pagar
+                // se precisar pagar
                 time_t timer; time(&timer);
                 double tempo_transcorrido = difftime(timer, removendo.hora); // sai em segundos
-                // 5 reais a primeira hora + 1,50 cada hora adicional (tolerancia 10s)
-                double minuto_inicial = (tempo_transcorrido >= 60.00) ? 1.00: 0.00;
-                double minutos_adicionais = 0.00;
-                if (tempo_transcorrido >= 70) {
-                  minutos_adicionais = tempo_transcorrido - 70.00;
-                }
-                double pagar_total = (5.00 * minuto_inicial) + (1.50 * minutos_adicionais);
-                printf("pagar: R$%.2lf", pagar_total);
+                if (removendo.tipo_servico == 'A')
+                  printf("pagar: R$%.2lf", calcula_quanto_pagar(tempo_transcorrido));
                 FLAG_CICLO_REMOVER = 0; 
                 break;
               } else {
@@ -215,4 +210,16 @@ int nao_percorridos(int tamanhos[]) {
   }
 
   return num_boxes_nao_percorridos;
+}
+
+// 5 reais a primeira hora + 1,50 cada hora adicional (tolerancia 10s)
+double calcula_quanto_pagar(double tempo_transcorrido) {
+  double pagar_total;
+  double minutos_adicionais;
+  if ( ((int) tempo_transcorrido % 60) < 10) {
+    pagar_total = 5.00;
+  } else {
+    minutos_adicionais = tempo_transcorrido - 60;
+    pagar_total = 5.00 + (1.50 * minutos_adicionais);
+  }
 }
