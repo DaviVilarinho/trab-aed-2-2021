@@ -11,7 +11,6 @@ struct no
 {
     Produto info;
     struct no *prox;
-    int contador;
 };
 
 
@@ -108,11 +107,11 @@ int remove_asc (Fila f, Produto *elem, int prioridade)
     return 1;
 }
 
-int apaga_fila (Fila f)
+int apaga_fila (Fila *f)
 {
-    esvazia_fila(f); // esvazia e libera cada no
-    free (f);        // esvazia a lista
-    f = NULL;
+    esvazia_fila(*f); // esvazia e libera cada no
+    free (*f);        // esvazia a lista
+    *f = NULL;
     return 1;
 }
 
