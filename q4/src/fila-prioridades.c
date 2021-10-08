@@ -1,6 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "fila.h"
+#include "fila-prioridades.h"
+struct fila
+{
+    struct no *ini, *fim;
+};
+
+
+struct no
+{
+    Produto info;
+    struct no *prox;
+};
+
 
 Fila cria_fila ()
 {
@@ -76,13 +88,12 @@ int remove_asc (Fila f, Produto *elem, int prioridade)
         return 0;
 
     struct no * aux;
-    aux = (struct no *) malloc(sizeof(struct no));
     aux = f -> ini;
 
     for (int i = 0; i < prioridade; i++) //pega o no na prioridade desejada
         aux = aux -> prox;
 
-    if (aux = NULL)
+    if (aux == NULL)
         return 0;
     else
         *elem = aux -> info; //retorna valor do elem
@@ -92,18 +103,30 @@ int remove_asc (Fila f, Produto *elem, int prioridade)
         f -> fim = NULL;
 
     f -> ini = aux -> prox; //retira 1 no da fila
-    free (aux); //free na memoria
+    free (aux);             //free na memoria
     return 1;
 }
 
-int apaga_fila (Fila f)
+int apaga_fila (Fila *f)
 {
-    free (f);
+    esvazia_fila(*f); // esvazia e libera cada no
+    free (*f);        // esvazia a lista
+    *f = NULL;
     return 1;
 }
 
 int esvazia_fila (Fila f)
 {
-    f = NULL;
+    while (fila_vazia(f) != 1) 
+    { // podia ser função Luiz :)
+        struct no *temp;
+
+        temp = f->ini;
+        f->ini = (f->ini)->prox;
+
+        free(temp);
+        temp = NULL;
+    }
+
     return 1;
 }
