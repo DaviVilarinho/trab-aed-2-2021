@@ -14,6 +14,8 @@
 #define NUMERO_BOXES      6 // 6 porque o de espera é o 0
 #define PRIMEIRO_BOX_UTIL 1
 #define BOX_ESPERA        0 
+#define HORA              60
+#define TOLERANCIA        10
 
 int nao_percorridos(int tamanhos[]);
 double calcula_quanto_pagar(double tempo_transcorrido);
@@ -214,12 +216,15 @@ int nao_percorridos(int tamanhos[]) {
 
 // 5 reais a primeira hora + 1,50 cada hora adicional (tolerancia 10s)
 double calcula_quanto_pagar(double tempo_transcorrido) {
-  double pagar_total;
-  double minutos_adicionais;
-  if ( ((int) tempo_transcorrido % 60) < 10) {
-    pagar_total = 5.00;
-  } else {
-    minutos_adicionais = tempo_transcorrido - 60;
-    pagar_total = 5.00 + (1.50 * minutos_adicionais);
-  }
+  double pagar_total = 5.00;
+
+  if ( tempo_transcorrido <  HORA+TOLERANCIA)
+    return pagar_total;
+
+  // nao é o caso de ser pagamento básico
+  double horas_a_pagar = (int) tempo_transcorrido / HORA;
+  if ( (int) tempo_transcorrido % HORA <= TOLERANCIA )
+    horas_a_pagar = horas_a_pagar - 1.0; 
+
+  return pagar_total + horas_a_pagar * 1.5;
 }
