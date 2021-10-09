@@ -1,9 +1,8 @@
 #include "fila.h"
-#define MAX 16
-#define MAX_TAM_STRING 16
 #ifndef STDLIB_INCLUIDA
 #define STDLIB_INCLUIDA
 #include <stdlib.h>
+#define MAX 10
 #endif
 #ifndef STRING_INCLUIDA
 #define STRING_INCLUIDA

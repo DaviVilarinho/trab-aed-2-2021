@@ -6,7 +6,7 @@
 struct carro {
   char placa[8];
   char tipo_servico;
-  struct tm hora;
+  time_t hora;
 };
 
 typedef struct carro carro_t;
