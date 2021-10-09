@@ -53,3 +53,14 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+/q1/bin/*
+/q2/bin/*
+/q3/bin/*
+/q4/bin/*
+/q5/bin/*
+/q1/obj/*
+/q2/obj/*
+/q3/obj/*
+/q4/obj/*
+/q5/obj/*
