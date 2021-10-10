@@ -12,10 +12,12 @@ int main (void)
   int op = 0;
   int filasParaCriar = 1;
   Produto temp;
+  Fila printar;
 
   do
   {
     printa_menu();
+    char temp_data[15];
     scanf("%i", &op);
     setbuf(stdin, NULL);
 
@@ -45,8 +47,21 @@ int main (void)
     case 2:
       if (filasParaCriar == 0) 
       {
-        printf("\n");
-        // printa fila!
+        printf("\nFILA:\n");
+        printar = cria_fila();
+
+        while (fila_vazia(f) != 1) {
+          remove_ini(&f, &temp);
+          insere_asc(&printar, temp);
+        }
+
+        while (fila_vazia(printar) != 1) {
+          remove_ini(&printar, &temp);
+          printa_produto(temp);
+          insere_asc(&f, temp);
+        }
+
+        apaga_fila(&printar);
         printf("\n");
       } 
       else 
@@ -69,10 +84,12 @@ int main (void)
         printf("\tVALOR: ");
         scanf("%f", &temp.valor); setbuf(stdin, NULL);
 
-        printf("\tVALIDADE: ");
-        scanf("%i", &temp.validade); setbuf(stdin, NULL);
+        printf("\tVALIDADE (dia/mes/ano): ");
+        scanf("%[^\n]", temp_data); setbuf(stdin, NULL);
+        sscanf(temp_data, "%i/%i/%i", &temp.v.dia, &temp.v.mes, &temp.v.ano);
 
         // inserir struct temp
+        insere_asc(f, temp);
       } 
       else 
       {
@@ -85,7 +102,12 @@ int main (void)
     case 4: 
       if (filasParaCriar == 0) 
       {
-        // remove faz algo
+        if (remove_ini(&f, printa_produto) == 1) {
+          printf("REMOVIDO: ");
+          printa_produto(temp);
+        } else {
+          printf("Fila vazia\n");
+        }
       } 
       else 
       {
@@ -130,6 +152,12 @@ int main (void)
   } while (op != 0);
 
   return 0;
+}
+
+void printa_produto (Produto p) {
+  printf("\t{CODIGO: %i, DESCRICAO: %s, VALOR: $%.2f, VALIDADE: %i/%i/%i}\n",
+          p.codigo,   p.descricao, p.valor,        p.v.dia, p.v.mes, p.v.ano
+  );
 }
 
 void printa_menu ()
