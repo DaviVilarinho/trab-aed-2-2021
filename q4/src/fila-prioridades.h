@@ -24,7 +24,7 @@ int fila_vazia (Fila f);
 
 int insere_asc (Fila *f, Produto p);
 
-int remove_asc (Fila *f, Produto *p, int prioridade);
+int remove_ini (Fila *f, Produto *p);
 
 int apaga_fila (Fila *f);
 

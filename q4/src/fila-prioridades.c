@@ -82,28 +82,19 @@ int insere_asc (Fila f, Produto elem)
     return 1;
 }
 
-int remove_asc (Fila f, Produto *elem, int prioridade)
+int remove_ini (Fila *f, Produto *elem)
 {
-    if (fila_vazia(f) == 1)
+    if (fila_vazia(*f) == 1)
         return 0;
 
-    struct no * aux;
-    aux = f -> ini;
+    // caso nao vazio
+    struct no *aux = (*f)->ini;
+    (*f)->ini = (*f)->ini->prox;
 
-    for (int i = 0; i < prioridade; i++) //pega o no na prioridade desejada
-        aux = aux -> prox;
+    *elem = aux->info;
+    free(aux);
+    aux = NULL;
 
-    if (aux == NULL)
-        return 0;
-    else
-        *elem = aux -> info; //retorna valor do elem
-
-    //verifica se a fila tem um no
-    if (f -> ini == f -> fim)
-        f -> fim = NULL;
-
-    f -> ini = aux -> prox; //retira 1 no da fila
-    free (aux);             //free na memoria
     return 1;
 }
 
@@ -117,15 +108,10 @@ int apaga_fila (Fila *f)
 
 int esvazia_fila (Fila *f)
 {
-    while (fila_vazia(f) != 1) 
-    { // podia ser função Luiz :)
-        struct no *temp;
-
-        temp = f->ini;
-        f->ini = (f->ini)->prox;
-
-        free(temp);
-        temp = NULL;
+    while (fila_vazia(*f) != 1) 
+    {
+        Produto foo;
+        remove_ini(f, &foo);
     }
     (*f)->fim = NULL;
     (*f)->ini = NULL;
