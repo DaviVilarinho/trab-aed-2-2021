@@ -28,4 +28,4 @@ int remove_asc (Fila *f, Produto *p, int prioridade);
 
 int apaga_fila (Fila *f);
 
-int esvazia_fila (Fila f);
+int esvazia_fila (Fila *f);
