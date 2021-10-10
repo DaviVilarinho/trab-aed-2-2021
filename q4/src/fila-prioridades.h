@@ -1,9 +1,17 @@
+typedef struct validade Validade;
+
+struct validade {
+    int dia;
+    int mes;
+    int ano;
+};
+
 struct produtos
 {
     int codigo;
     char descricao[100];
     float valor;
-    int validade;
+    Validade v;
 };
 
 typedef struct produtos Produto;
@@ -14,9 +22,9 @@ Fila cria_fila ();
 
 int fila_vazia (Fila f);
 
-int insere_asc (Fila f, Produto p);
+int insere_asc (Fila *f, Produto p);
 
-int remove_asc (Fila f, Produto *p, int prioridade);
+int remove_asc (Fila *f, Produto *p, int prioridade);
 
 int apaga_fila (Fila *f);
 

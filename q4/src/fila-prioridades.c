@@ -115,7 +115,7 @@ int apaga_fila (Fila *f)
     return 1;
 }
 
-int esvazia_fila (Fila f)
+int esvazia_fila (Fila *f)
 {
     while (fila_vazia(f) != 1) 
     { // podia ser função Luiz :)
@@ -127,6 +127,8 @@ int esvazia_fila (Fila f)
         free(temp);
         temp = NULL;
     }
+    (*f)->fim = NULL;
+    (*f)->ini = NULL;
 
     return 1;
 }
