@@ -36,7 +36,34 @@ int fila_vazia (Fila f)
         return 0;
 }
 
-int insere_asc (Fila f, Produto elem)
+// 0 igual
+// 1 primeiro mais prioritario
+// 2 segundo mais priotario
+int maisPrioritario (Produto p1, Produto p2)
+{
+    if (p1.v.ano < p2.v.ano)
+        return 1;
+    else if (p2.v.ano < p1.v.ano)
+        return 2;
+
+    else { // anos iguais entao
+        if (p1.v.mes < p2.v.mes)
+            return 1;
+        else if (p2.v.mes < p1.v.mes)
+            return 2;
+
+        else { // anos & meses iguais
+            if (p1.v.dia < p2.v.dia)
+                return 1;
+            else if (p2.v.dia < p1.v.dia)
+                return 2;
+            else  // todos iguais
+                return 0;
+        }
+    }
+}
+
+int insere_ord (Fila *f, Produto elem) // porque fdp tem que inserir de acordo com prioridade e remover o com menos (no caso validade)
 {
     struct no *N;
     N = (struct no *) malloc(sizeof(struct no));
@@ -46,39 +73,44 @@ int insere_asc (Fila f, Produto elem)
 
     N -> info = elem; //Preenche campo info
 
-    Fila aux = f;
-
-    if (fila_vazia(f) == 1)
-        f -> ini = N; //Se fila vazia
-    else
+    if (fila_vazia(*f) == 1) // fila vazia basta inserir inicio = fim = ele
     {
-        while (N != f -> fim) // Enquanto não chegar ao fim da fila
+        (*f)->ini = N;
+        (*f)->fim = N;
+        return 1;
+
+    } else {                 // fila nao vazia, inserir de acordo com prioridade
+        if (maisPrioritario(elem, (*f)->ini->info) < 2) // caso N seja mais prioritario que o proprio inicio ou igual
         {
-            Produto ini = (aux -> ini) -> info;
-            int ano = elem.validade % 10000;
-            int ano2 = ini.validade % 10000;
-            int mes = (elem.validade % 1000000) / 10000;
-            int mes2 = (ini.validade % 1000000) / 10000;
-            int dia = elem.validade / 1000000;
-            int dia2 = ini.validade / 1000000;
+            N->prox = (*f)->ini;
+            (*f)->ini = N;
+        }     
 
-            if (ano2 > ano) // Se o ano do produto do início for maior que o ano de elem
-                N -> prox = (aux -> ini); // O prox de N aponta para aux
-            else if (ano2 == ano) //Se os anos forem iguais, passamos para os meses
-            {
-                if (mes2 > mes) //Se o mes do produto do ini for maior que o mes do elem
-                    N -> prox = (aux -> ini); // O prox de N aponta pra aux
-                else if (mes2 == mes) //Se os meses forem iguais, passamos para os dias
-                {
-                    if (dia2 > dia || dia2 == dia) //Se os dias forem iguais ou o de aux for maior, podemos colocar o N antes de aux
-                        N -> prox = (aux -> ini); // O prox de N aponta para aux
-                }
+        // nao é mais prioritario que o primeiro
+        struct no *cursor_atras = (*f)->ini;
+
+        while (cursor_atras->prox != NULL) {
+            // se encontrado onde o elemento a inserir é mais prioritario
+            if (maisPrioritario(elem, cursor_atras->prox->info) < 2) {
+                N->prox = cursor_atras->prox;
+                cursor_atras->prox = N;
+
+                return 1;
             }
-            else if (ano2 < ano || mes2 < mes || dia2 < dia) // Agora se o elem for maior que ini, passamos ao prox
-                (aux -> ini) = (aux -> ini) -> prox;
-        }
-    }
 
+            // nao encontrado avanca
+            cursor_atras = cursor_atras->prox;
+        }
+        
+        // nao foi inserido até o final, logo insere no final & atualiza fila
+        N->prox = NULL;
+        cursor_atras->prox = N;
+
+        (*f)->fim = N;
+
+        return 1;
+
+    }
     return 1;
 }
 

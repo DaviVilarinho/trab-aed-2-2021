@@ -22,7 +22,7 @@ Fila cria_fila ();
 
 int fila_vazia (Fila f);
 
-int insere_asc (Fila *f, Produto p);
+int insere_ord (Fila *f, Produto p);
 
 int remove_ini (Fila *f, Produto *p);
 
