@@ -85,6 +85,7 @@ int insere_ord (Fila f, Produto elem) // porque fdp tem que inserir de acordo co
         {
             N->prox = f->ini;
             f->ini = N;
+            return 1;
         }     
 
         // nao é mais prioritario que o primeiro
@@ -122,10 +123,12 @@ int remove_ini (Fila fila, Produto *elem)
     struct no *temp = fila->ini;
     *elem = fila->ini ->info;
 
-    if (fila->ini != fila->fim) // caso com mais
+    if (fila->ini != fila->fim)    // caso com mais elementos
       fila->ini = fila->ini->prox; // ini é o prox 
-    else
+    else { // caso unico elemento
       fila->ini = NULL;
+      fila->fim = NULL;
+    }
 
     free(temp);
     temp = NULL;
