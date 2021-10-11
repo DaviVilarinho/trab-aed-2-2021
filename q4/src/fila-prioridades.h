@@ -22,10 +22,10 @@ Fila cria_fila ();
 
 int fila_vazia (Fila f);
 
-int insere_ord (Fila *f, Produto p);
+int insere_ord (Fila f, Produto p);
 
-int remove_ini (Fila *f, Produto *p);
+int remove_ini (Fila f, Produto *p);
 
 int apaga_fila (Fila *f);
 
-int esvazia_fila (Fila *f);
+int esvazia_fila (Fila f);

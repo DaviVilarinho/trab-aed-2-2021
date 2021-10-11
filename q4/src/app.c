@@ -51,14 +51,14 @@ int main (void)
         printar = cria_fila();
 
         while (fila_vazia(f) != 1) {
-          remove_ini(&f, &temp);
-          insere_asc(&printar, temp);
+          remove_ini(f, &temp);
+          insere_ord(printar, temp);
         }
 
         while (fila_vazia(printar) != 1) {
-          remove_ini(&printar, &temp);
+          remove_ini(printar, &temp);
           printa_produto(temp);
-          insere_asc(&f, temp);
+          insere_ord(f, temp);
         }
 
         apaga_fila(&printar);
@@ -74,6 +74,7 @@ int main (void)
     case 3:
       if (filasParaCriar == 0) 
       {
+        /*
         printf("PRODUTO A INSERIR:\n");
         printf("\tCODIGO: ");
         scanf("%i", &temp.codigo); setbuf(stdin, NULL);
@@ -89,7 +90,17 @@ int main (void)
         sscanf(temp_data, "%i/%i/%i", &temp.v.dia, &temp.v.mes, &temp.v.ano);
 
         // inserir struct temp
-        insere_asc(f, temp);
+        insere_ord(f, temp);
+        */
+        // mock
+        Produto a4 = {456, "asdasd", 18.5, {2,2,2}};
+        insere_ord(f, a4);
+        Produto a1 = {123, "asdasd", 17.5, {1,1,1}};
+        insere_ord(f, a1);
+        Produto a2 = {234, "asdasd", 18.5, {4,4,4}};
+        insere_ord(f, a2);
+        Produto a3 = {345, "asdasd", 18.5, {3,3,3}};
+        insere_ord(f, a3);
       } 
       else 
       {
@@ -102,7 +113,7 @@ int main (void)
     case 4: 
       if (filasParaCriar == 0) 
       {
-        if (remove_ini(&f, printa_produto) == 1) {
+        if (remove_ini(f, &temp) == 1) {
           printf("REMOVIDO: ");
           printa_produto(temp);
         } else {
@@ -134,7 +145,7 @@ int main (void)
       {
         apaga_fila(&f); // o ponteiro e o da aplicacao e tem a flag
         filasParaCriar--;
-        printf("Fila apagado!\n");
+        printf("Fila apagada!\n");
       }
       else
       {
@@ -145,6 +156,7 @@ int main (void)
     case 0:
       printf("\nadeus\n");
       break;
+
     default:
       printf("\nopcao invalida\n\n");
       break;
