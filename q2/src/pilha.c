@@ -1,4 +1,3 @@
-// TODO: adaptar para void
 #include "pilha.h"
 #ifndef STDLIB_INCLUIDA
 #include <stdlib.h>
@@ -34,13 +33,13 @@ int push(pilha_p *pilha_ref, void *info) {
   return 1; 
 }
 
-int pop(pilha_p *pilha_ref, void* *funcionario_ref) {
+int pop(pilha_p *pilha_ref, void **elem_ref) {
   if (pilha_vazia(*pilha_ref))
     return 0; // pilha vazia n desempilha
   // não é NULL então
   
   pilha_p salva_ref_prox = (*pilha_ref)->prox;
-  *funcionario_ref = (*pilha_ref)->info; // info retornada implicitamente é o topo 
+  *elem_ref = (*pilha_ref)->info; // info retornada implicitamente é o topo 
 
   free(*pilha_ref); // libera o no da memoria
   *pilha_ref = salva_ref_prox; // atribui ao antigo anterior ao topo (ou o vazio)
@@ -48,7 +47,7 @@ int pop(pilha_p *pilha_ref, void* *funcionario_ref) {
   return 1;
 }
 
-int le_topo(pilha_p pilha, void** ref) {
+int le_topo(pilha_p pilha, void **ref) {
   if (pilha_vazia(pilha))
     return 0; // nao há o que olhar em pilha vazia
 
@@ -61,14 +60,15 @@ int libera_pilha(pilha_p *pilha_ref) {
   if (pilha_vazia(*pilha_ref))
     return 0; // pilha vazia não libera
 
-  void* foo;
+  void *liberando;
 
   while (*pilha_ref != NULL)
-    pop(pilha_ref, &foo); // remove topo até vazio
+    pop(pilha_ref, &liberando); // remove topo até vazio
   
   return 1;
 }
 
+// impl dinamica: sem diferenca entre libera e esvazia
 int esvazia_pilha(pilha_p *pilha_ref) {
   return libera_pilha(pilha_ref);
 }

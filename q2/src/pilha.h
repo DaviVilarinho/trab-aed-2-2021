@@ -1,5 +1,3 @@
-#define MAX_NOME 30
-
 struct no;
 
 typedef struct no * pilha_p;
