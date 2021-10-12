@@ -74,7 +74,6 @@ int main (void)
     case 3:
       if (filasParaCriar == 0) 
       {
-        /*
         printf("PRODUTO A INSERIR:\n");
         printf("\tCODIGO: ");
         scanf("%i", &temp.codigo); setbuf(stdin, NULL);
@@ -91,16 +90,6 @@ int main (void)
 
         // inserir struct temp
         insere_ord(f, temp);
-        */
-        // mock
-        Produto a4 = {456, "asdasd", 18.5, {2,2,2}};
-        insere_ord(f, a4);
-        Produto a1 = {123, "asdasd", 17.5, {1,1,1}};
-        insere_ord(f, a1);
-        Produto a2 = {234, "asdasd", 18.5, {4,4,4}};
-        insere_ord(f, a2);
-        Produto a3 = {345, "asdasd", 18.5, {3,3,3}};
-        insere_ord(f, a3);
       } 
       else 
       {
