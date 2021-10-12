@@ -6,11 +6,15 @@
 #include <string.h>
 #include <stdio.h>
 
+int converte_pra_posfixa(char [], char []);
+
 int main() {  
   int FIM = 0;
   while (FIM != 1) {
     char formula[100];
+    char formula_pos[100];
     //pilha_p expressao;
+
     printf("Digite uma expressao (FIM para sair): ") ;
     scanf("%[^\n]", formula);
     setbuf(stdin, NULL);
@@ -19,7 +23,6 @@ int main() {
       FIM = 1;
     } else {
       // validar escopo
-
       int i = 0, entreParenteses = 0, entreColchetes = 0, entreChaves = 0, valido = 1;
       char c;
       while ((c = formula[i]) != '\0' && valido != 0) {
@@ -91,9 +94,15 @@ int main() {
       // escopo válido
       if (valido == 1) {
         // conversao
-        // avaliacao
+        if (converte_pra_posfixa(formula, formula_pos) == 1) {
+          printf("formula convertida: %s\n", formula_pos);
+          // avaliacao
+        } else {
+          printf("nao foi possivel converter\n");
+        }
         printf("%s\n", formula);
-        
+      } else {
+        printf("expressao invalida\n");
       }
     }
 
@@ -103,3 +112,7 @@ int main() {
   return 0;
 }
 
+int converte_pra_posfixa(char formula[], char formula_pos[]) {
+  // TODO: implementar conversao
+  return 0;
+}
