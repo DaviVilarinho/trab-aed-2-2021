@@ -1,5 +1,3 @@
-struct no;
-
 typedef struct no * pilha_p;
 
 pilha_p cria_pilha();
