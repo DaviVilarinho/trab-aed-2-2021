@@ -5,15 +5,17 @@
 #endif
 #include <string.h>
 #include <stdio.h>
+#include <ctype.h>
 
 int converte_pra_posfixa(char [], char []);
+int eh_operador (char);
+int precedencias (char);
 
 int main() {  
   int FIM = 0;
   while (FIM != 1) {
     char formula[100];
     char formula_pos[100];
-    //pilha_p expressao;
 
     printf("Digite uma expressao (FIM para sair): ") ;
     scanf("%[^\n]", formula);
@@ -94,25 +96,47 @@ int main() {
       // escopo válido
       if (valido == 1) {
         // conversao
+        printf("formula digitada: %s\n", formula);
         if (converte_pra_posfixa(formula, formula_pos) == 1) {
           printf("formula convertida: %s\n", formula_pos);
           // avaliacao
         } else {
           printf("nao foi possivel converter\n");
         }
-        printf("%s\n", formula);
       } else {
         printf("expressao invalida\n");
       }
     }
 
-//    libera_pilha(&expressao);
   }
   
   return 0;
 }
 
-int converte_pra_posfixa(char formula[], char formula_pos[]) {
-  // TODO: implementar conversao
-  return 0;
+int converte_pra_posfixa (char formula[], char formula_pos[]) {
+  pilha_p expressao = cria_pilha();
+
+  char c;
+  int i = 0;
+  
+  // varrer a expressao da esquerda pra direita
+  while ((c = formula[i]) != '\0') {
+
+  }
+}
+
+int eh_operador (char c) {
+  return (c == '^' || c == '*' || c == '/' || c == '+' || c == '-');
+}
+
+int precedencias (char c) {
+  if (c == '^') {
+    return 3;
+  } else if (c == '*' || c == '/') {
+    return 2;
+  } else if (c == '+' || c == '-') {
+    return 1;
+  } else {
+    return 0;
+  }
 }
