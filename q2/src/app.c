@@ -213,6 +213,10 @@ int resolve_posfixa (char formula_pos_fixa[], double literais[], double *respost
 
       *resultado = faz_operacao(*p_double_ant_ant, c, *p_double_ant);
       push(&nova_pilha, (void*) resultado, TIPO_DOUBLE);
+
+      // desaloca porque deu pop
+      free(p_double_ant); p_double_ant = NULL;
+      free(p_double_ant_ant); p_double_ant_ant = NULL;
     }
 
     i++;

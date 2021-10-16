@@ -76,9 +76,12 @@ int libera_pilha(pilha_p *pilha_ref) {
 
   void *liberando;
 
-  while (*pilha_ref != NULL)
+  while (*pilha_ref != NULL) {
     // char é perigoso recastar
     pop(pilha_ref, &liberando, TIPO_DOUBLE); // remove topo até vazio
+    free(liberando);
+    liberando = NULL; // liberando malloc porque void era ptr
+  }
   
   return 1;
 }
