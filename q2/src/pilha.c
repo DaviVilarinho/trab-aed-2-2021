@@ -5,6 +5,7 @@
 #endif
 
 struct no {
+  int tipo;
   void *info;
   pilha_p prox;
 };
@@ -20,13 +21,15 @@ int pilha_vazia(pilha_p pilha) {
     return 0;
 }
 
-int push(pilha_p *pilha_ref, void *info) {
+int push(pilha_p *pilha_ref, void *info, int tipo) {
   // geração de memória, falha se não tiver memório
   pilha_p inserindo = (pilha_p) malloc(sizeof(struct no));
-  if (inserindo == NULL)
-    return 0;
+  if (inserindo == NULL || (tipo != TIPO_CHAR && tipo != TIPO_DOUBLE))
+    return 0; // se nao definir tipo tbm tem que dar erro
 
-  (inserindo->info) = info;
+  inserindo->info = info;
+  inserindo->tipo = tipo;
+
   inserindo->prox = *pilha_ref; // aponta pro que a pilha aponta (inclusive vazio)
   *pilha_ref = inserindo; // pilha agora aponta pra ele (o novo topo)
   
