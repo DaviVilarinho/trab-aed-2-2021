@@ -11,7 +11,7 @@ int converte_pra_posfixa(char [], char []);
 int eh_operador (char);
 int precedencias (char);
 int escopo_valido (char []);
-int resolve_posfixa (char [], double *);
+int resolve_posfixa (char [], char [], double *);
 
 int main() {  
   int FIM = 0;
@@ -92,6 +92,10 @@ int eh_operador (char c) {
   return (c == '^' || c == '*' || c == '/' || c == '+' || c == '-');
 }
 
+int eh_literal(char c) {
+  return (c == 'A' || c == 'B' || c == 'C' || c == 'D' || c == 'E' || c == 'F');
+}
+
 int precedencias (char c) {
   if (c == '^') {
     return 3;
@@ -104,13 +108,53 @@ int precedencias (char c) {
   }
 }
 
-int resolve_pos_fixa (char formula_pos_fixa[], double *resultado) {
+
+int lit_pra_num(char literais[], char literal) {
+  switch (literal) {
+    case 'A': return literais[0];
+    case 'B': return literais[1];
+    case 'C': return literais[2];
+    case 'D': return literais[3];
+    case 'E': return literais[4];
+    case 'F': return literais[5];
+    default: return 0;
+  }
+}
+
+double faz_operacao(double x1, char operador, double x2) {
+
+}
+
+
+int resolve_pos_fixa (char formula_pos_fixa[], char literais[], double *resultado) {
   pilha_p nova_pilha = cria_pilha();
 
   int i = 0;
-  char *c;
+  char c;
+  double d[2];
+  double *p_double_ant;
+  double *p_double_ant_ant;
 
-  while (formula_pos_fixa[i] != '\0')
+  while ((c = formula_pos_fixa[i]) != '\0') {
+    if (eh_literal(c)) {
+      d[0] = lit_pra_num(literais, c);
+      push(&nova_pilha, (void *) &d[0], TIPO_DOUBLE);
+    }
+    if (eh_operador(c)) {
+      // TODO verificar elevado
+      pop(&nova_pilha, (void **) &p_double_ant, TIPO_DOUBLE);
+      pop(&nova_pilha, (void **) &p_double_ant_ant, TIPO_DOUBLE);
+
+      d[0] = *p_double_ant;
+      d[1] = *p_double_ant_ant;
+
+      push(&)
+
+    }
+
+
+    i++;
+  }
 
   libera_pilha(&nova_pilha);
 
