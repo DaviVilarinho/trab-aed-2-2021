@@ -58,9 +58,11 @@ dkms.conf
 /q2/bin/*
 /q3/bin/*
 /q4/bin/*
+q4/bin/app
 /q5/bin/*
 /q1/obj/*
 /q2/obj/*
 /q3/obj/*
 /q4/obj/*
 /q5/obj/*
+q4/bin/app

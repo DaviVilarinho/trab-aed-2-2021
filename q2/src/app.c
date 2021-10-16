@@ -24,77 +24,8 @@ int main() {
     if (strcmp(formula, "FIM") == 0) {
       FIM = 1;
     } else {
-      // validar escopo
-      int i = 0, entreParenteses = 0, entreColchetes = 0, entreChaves = 0, valido = 1;
-      char c;
-      while ((c = formula[i]) != '\0' && valido != 0) {
-        /*
-         * validação: se estiver abrindo um de mesmo escopo
-         *            enquanto não tiver fechado, invalida,
-         *            bem como invalida se estiver fechando algo não aberto
-         */
-        switch (c) {
-          // ABERTURAS
-            // nao pode estar com o mesmo aberto
-            // nem um com menor precedencia aberto
-          case '{':
-            if (entreChaves == 1 || (entreParenteses == 1 || entreColchetes == 1))
-              valido = 0;
-            else
-              entreChaves = 1;
-
-            break;
-
-          case '[':
-            if (entreColchetes == 1 || entreParenteses == 1)
-              valido = 0;
-            else
-              entreColchetes = 1;
-
-            break;
-
-          case '(':
-            if (entreParenteses == 1)
-              valido = 0;
-            else
-              entreParenteses = 1;
-
-            break;
-          
-          // fechamento
-            // posso fechar qualquer um que esteja aberto
-            // e nao esteja com um de menor precedencia aberto
-          case ')':
-            if (entreParenteses == 0)
-              valido = 0;
-            else
-              entreParenteses = 0;
-
-            break;
-
-          case ']':
-            if (entreColchetes == 0 || entreParenteses == 1)
-              valido = 0;
-            else
-              entreColchetes = 0;
-
-            break;
-
-          case '}':
-            if (entreChaves == 0 || entreColchetes == 1 || entreParenteses == 1)
-              valido = 0;
-            else
-              entreChaves = 0;
-
-            break;
-
-          default:;
-        }
-        i++;
-      }
-
       // escopo válido
-      if (valido == 1) {
+      if (escopo_valido(formula) == 1) {
         // conversao
         printf("formula digitada: %s\n", formula);
         if (converte_pra_posfixa(formula, formula_pos) == 1) {
@@ -168,4 +99,76 @@ int precedencias (char c) {
   } else {
     return 0;
   }
+}
+
+int escopo_valido (char formula[]) {
+      int i = 0, entreParenteses = 0, entreColchetes = 0, entreChaves = 0, valido = 1;
+      char c;
+      while ((c = formula[i]) != '\0' && valido != 0) {
+        /*
+         * validação: se estiver abrindo um de mesmo escopo
+         *            enquanto não tiver fechado, invalida,
+         *            bem como invalida se estiver fechando algo não aberto
+         */
+        switch (c) {
+          // ABERTURAS
+            // nao pode estar com o mesmo aberto
+            // nem um com menor precedencia aberto
+          case '{':
+            if (entreChaves == 1 || (entreParenteses == 1 || entreColchetes == 1))
+              valido = 0;
+            else
+              entreChaves = 1;
+
+            break;
+
+          case '[':
+            if (entreColchetes == 1 || entreParenteses == 1)
+              valido = 0;
+            else
+              entreColchetes = 1;
+
+            break;
+
+          case '(':
+            if (entreParenteses == 1)
+              valido = 0;
+            else
+              entreParenteses = 1;
+
+            break;
+          
+          // fechamento
+            // posso fechar qualquer um que esteja aberto
+            // e nao esteja com um de menor precedencia aberto
+          case ')':
+            if (entreParenteses == 0)
+              valido = 0;
+            else
+              entreParenteses = 0;
+
+            break;
+
+          case ']':
+            if (entreColchetes == 0 || entreParenteses == 1)
+              valido = 0;
+            else
+              entreColchetes = 0;
+
+            break;
+
+          case '}':
+            if (entreChaves == 0 || entreColchetes == 1 || entreParenteses == 1)
+              valido = 0;
+            else
+              entreChaves = 0;
+
+            break;
+
+          default:;
+        }
+        i++;
+      }
+
+  return valido;
 }
