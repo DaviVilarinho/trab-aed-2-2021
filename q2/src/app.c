@@ -44,6 +44,7 @@ int main() {
   return 0;
 }
 
+// modularizado porque dizia que tinha que retornar
 int converte_pra_posfixa (char formula[], char formula_pos[]) {
   pilha_p expressao = cria_pilha();
 
@@ -53,7 +54,7 @@ int converte_pra_posfixa (char formula[], char formula_pos[]) {
   
   // varrer a expressao da esquerda pra direita
   while ((c = formula[i]) != '\0') {
-    if(isalnum(c))
+    if(isalpha(c))
       formula_pos[i] = c;
     else if(c == '(')
       push(&expressao, &c);
@@ -101,6 +102,7 @@ int precedencias (char c) {
   }
 }
 
+// modularizado porque são muitas linhas
 int escopo_valido (char formula[]) {
       int i = 0, entreParenteses = 0, entreColchetes = 0, entreChaves = 0, valido = 1;
       char c;
