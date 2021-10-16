@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <math.h>
 
 int converte_pra_posfixa(char [], char []);
 int eh_operador (char);
@@ -122,7 +123,33 @@ int lit_pra_num(char literais[], char literal) {
 }
 
 double faz_operacao(double x1, char operador, double x2) {
+  double retorno = 0.0;
+  switch (operador)
+  {
+    case '+':
+      retorno = (x2 + x1);
+      break;
+    
+    case '-':
+      retorno = (x2 - x1);
+      break;
 
+    case '*':
+      retorno = (x2 * x1);
+      break;
+
+    case '/':
+      retorno = (x2 / x1);
+      break;
+
+    case '^':
+      retorno = pow(x2,x1);
+      break;
+
+    default:
+      break;
+  }
+  return retorno;
 }
 
 
