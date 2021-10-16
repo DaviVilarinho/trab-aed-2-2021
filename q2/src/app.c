@@ -117,12 +117,41 @@ int converte_pra_posfixa (char formula[], char formula_pos[]) {
   pilha_p expressao = cria_pilha();
 
   char c;
+  char x;
   int i = 0;
   
   // varrer a expressao da esquerda pra direita
   while ((c = formula[i]) != '\0') {
-
+    if(isalnum(c))
+      formula_pos[i] = c;
+    else if(c == '(')
+      push(&expressao, &c);
+    else if(c == ')') {
+      pop(&expressao, &x);
+      while(x != '(') {
+        formula_pos[i] = x;
+        pop(&expressao, &x);
+      }
+    }
+    else {
+      pop(&expressao, &x);
+      while(precedencias(x) >= precedencias(c)) {
+        formula_pos[i] = x;
+        pop(&expressao, &x);
+      }
+      push(&expressao, &c);
+    } 
+    i++;
   }
+
+  while(!pilha_vazia(expressao)) {
+    pop(&expressao, &x);
+    formula_pos[i] = x;
+    i++;
+  }
+
+  libera_pilha(&expressao);
+  return 1;
 }
 
 int eh_operador (char c) {
