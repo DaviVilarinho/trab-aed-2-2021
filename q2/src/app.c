@@ -10,6 +10,7 @@
 int converte_pra_posfixa(char [], char []);
 int eh_operador (char);
 int precedencias (char);
+int escopo_valido (char []);
 
 int main() {  
   int FIM = 0;
@@ -48,37 +49,37 @@ int main() {
 int converte_pra_posfixa (char formula[], char formula_pos[]) {
   pilha_p expressao = cria_pilha();
 
-  char c;
-  char x;
+  char *c;
+  char *x;
   int i = 0;
   
   // varrer a expressao da esquerda pra direita
-  while ((c = formula[i]) != '\0') {
-    if(isalpha(c))
-      formula_pos[i] = c;
-    else if(c == '(')
-      push(&expressao, &c);
-    else if(c == ')') {
-      pop(&expressao, &x);
-      while(x != '(') {
-        formula_pos[i] = x;
-        pop(&expressao, &x);
+  while ((*c = formula[i]) != '\0') {
+    if(isalpha(*c))
+      formula_pos[i] = *c;
+    else if(*c == '(')
+      push(&expressao, (void **) &c);
+    else if(*c == ')') {
+      pop(&expressao, (void **) &x);
+      while(*x != '(') {
+        formula_pos[i] = *x;
+        pop(&expressao, (void **) &x);
       }
     }
     else {
-      pop(&expressao, &x);
-      while(precedencias(x) >= precedencias(c)) {
-        formula_pos[i] = x;
-        pop(&expressao, &x);
+      pop(&expressao, (void **) &x);
+      while(precedencias(*x) >= precedencias(*c)) {
+        formula_pos[i] = *x;
+        pop(&expressao, (void **) &x);
       }
-      push(&expressao, &c);
+      push(&expressao, (void **) &c);
     } 
     i++;
   }
 
   while(!pilha_vazia(expressao)) {
-    pop(&expressao, &x);
-    formula_pos[i] = x;
+    pop(&expressao, (void **) &x);
+    formula_pos[i] = *x;
     i++;
   }
 
