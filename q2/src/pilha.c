@@ -36,13 +36,18 @@ int push(pilha_p *pilha_ref, void *info, int tipo) {
   return 1; 
 }
 
-int pop(pilha_p *pilha_ref, void **elem_ref) {
+int pop(pilha_p *pilha_ref, void **elem_ref, int tipo) {
   if (pilha_vazia(*pilha_ref))
     return 0; // pilha vazia n desempilha
   // não é NULL então
   
   pilha_p salva_ref_prox = (*pilha_ref)->prox;
-  *elem_ref = (*pilha_ref)->info; // info retornada implicitamente é o topo 
+
+  if (tipo == TIPO_CHAR)
+    *elem_ref = (char *) (*pilha_ref)->info; // agora aponta pra um cast de ponteiro!
+    
+  else
+    *elem_ref = (double *) (*pilha_ref)->info; 
 
   free(*pilha_ref); // libera o no da memoria
   *pilha_ref = salva_ref_prox; // atribui ao antigo anterior ao topo (ou o vazio)
@@ -50,11 +55,17 @@ int pop(pilha_p *pilha_ref, void **elem_ref) {
   return 1;
 }
 
-int le_topo(pilha_p pilha, void **ref) {
-  if (pilha_vazia(pilha))
+int le_topo(pilha_p pilha, void **ref, int tipo) {
+  if (pilha_vazia(pilha) || (tipo != TIPO_CHAR && tipo != TIPO_DOUBLE))
     return 0; // nao há o que olhar em pilha vazia
 
-  *ref = pilha->info; // sabemos que não é NULL
+
+  // sabemos que não é NULL
+  // sabemos o tipo
+  if (tipo == TIPO_CHAR)
+    *ref = (char *) pilha->info; 
+  else
+    *ref = (double *) pilha->info;
 
   return 1;
 }
@@ -66,7 +77,8 @@ int libera_pilha(pilha_p *pilha_ref) {
   void *liberando;
 
   while (*pilha_ref != NULL)
-    pop(pilha_ref, &liberando); // remove topo até vazio
+    // char é perigoso recastar
+    pop(pilha_ref, &liberando, TIPO_DOUBLE); // remove topo até vazio
   
   return 1;
 }
