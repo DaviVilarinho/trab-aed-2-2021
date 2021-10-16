@@ -11,6 +11,7 @@ int converte_pra_posfixa(char [], char []);
 int eh_operador (char);
 int precedencias (char);
 int escopo_valido (char []);
+int resolve_posfixa (char [], double *);
 
 int main() {  
   int FIM = 0;
@@ -101,6 +102,19 @@ int precedencias (char c) {
   } else {
     return 0;
   }
+}
+
+int resolve_pos_fixa (char formula_pos_fixa[], double *resultado) {
+  pilha_p nova_pilha = cria_pilha();
+
+  int i = 0;
+  char *c;
+
+  while (formula_pos_fixa[i] != '\0')
+
+  libera_pilha(&nova_pilha);
+
+  return 1;
 }
 
 // modularizado porque são muitas linhas
