@@ -29,8 +29,9 @@ int main() {
     } else {
       // escopo válido
       if (escopo_valido(formula) == 1) {
-        // conversao
+        printf("escopo eh valido, ");
         printf("formula digitada: %s\n", formula);
+        // conversao
         if (converte_pra_posfixa(formula, formula_pos) == 1) {
           printf("formula convertida: %s\n", formula_pos);
           // avaliacao
@@ -60,27 +61,27 @@ int converte_pra_posfixa (char formula[], char formula_pos[]) {
     if(isalpha(*c))
       formula_pos[i] = *c;
     else if(*c == '(')
-      push(&expressao, (void **) &c);
+      push(&expressao, (void **) &c, TIPO_CHAR);
     else if(*c == ')') {
-      pop(&expressao, (void **) &x);
+      pop(&expressao, (void **) &x, TIPO_CHAR);
       while(*x != '(') {
         formula_pos[i] = *x;
-        pop(&expressao, (void **) &x);
+        pop(&expressao, (void **) &x, TIPO_CHAR);
       }
     }
     else {
-      pop(&expressao, (void **) &x);
+      pop(&expressao, (void **) &x, TIPO_CHAR);
       while(precedencias(*x) >= precedencias(*c)) {
         formula_pos[i] = *x;
-        pop(&expressao, (void **) &x);
+        pop(&expressao, (void **) &x, TIPO_CHAR);
       }
-      push(&expressao, (void **) &c);
+      push(&expressao, (void **) &c, TIPO_CHAR);
     } 
     i++;
   }
 
   while(!pilha_vazia(expressao)) {
-    pop(&expressao, (void **) &x);
+    pop(&expressao, (void **) &x, TIPO_CHAR);
     formula_pos[i] = *x;
     i++;
   }
@@ -174,8 +175,6 @@ int resolve_pos_fixa (char formula_pos_fixa[], char literais[], double *resultad
 
       d[0] = *p_double_ant;
       d[1] = *p_double_ant_ant;
-
-      push(&)
 
     }
 
