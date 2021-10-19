@@ -18,7 +18,7 @@ TARGET   = app
 
 CC       = gcc
 # compiling flags here
-CFLAGS   = -std=c99 -Wall -I. -g
+CFLAGS   = -std=c99 -Wall -I. -g -lm
 
 LINKER   = gcc
 # linking flags here

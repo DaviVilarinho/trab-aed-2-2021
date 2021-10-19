@@ -97,8 +97,9 @@ int main (void) {
                 printf("\n");
 
                 // se precisar pagar
-                time_t timer; time(&timer);
-                double tempo_transcorrido = difftime(timer, removendo.hora); // sai em segundos
+                double tempo_transcorrido; 
+                printf("minutos a serem adicionados: ");
+                scanf("%lf", &tempo_transcorrido); setbuf(stdin, NULL);
                 if (removendo.tipo_servico == 'A')
                   printf("pagar: R$%.2lf", calcula_quanto_pagar(tempo_transcorrido));
                 FLAG_CICLO_REMOVER = 0; 
@@ -214,7 +215,7 @@ int nao_percorridos(int tamanhos[]) {
 double calcula_quanto_pagar(double tempo_transcorrido) {
   double pagar_total = 5.00;
 
-  if ( tempo_transcorrido <  HORA+TOLERANCIA)
+  if ( tempo_transcorrido <  HORA+TOLERANCIA )
     return pagar_total;
 
   // nao é o caso de ser pagamento básico
