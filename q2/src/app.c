@@ -78,44 +78,6 @@ int main() {
 /*
 // modularizado porque dizia que tinha que retornar
 int converte_pra_posfixa (char formula[], char formula_pos[]) {
-  pilha_p expressao = cria_pilha();
-
-  char *c;
-  char *x;
-  int i = 0;
-  
-  // varrer a expressao da esquerda pra direita
-  while ((*c = formula[i]) != '\0') {
-    if(isalpha(*c))
-      formula_pos[i] = *c;
-    else if(*c == '(')
-      push(&expressao, (void **) &c, TIPO_CHAR);
-    else if(*c == ')') {
-      pop(&expressao, (void **) &x, TIPO_CHAR);
-      while(*x != '(') {
-        formula_pos[i] = *x;
-        pop(&expressao, (void **) &x, TIPO_CHAR);
-      }
-    }
-    else {
-      pop(&expressao, (void **) &x, TIPO_CHAR);
-      while(precedencias(*x) >= precedencias(*c)) {
-        formula_pos[i] = *x;
-        pop(&expressao, (void **) &x, TIPO_CHAR);
-      }
-      push(&expressao, (void **) &c, TIPO_CHAR);
-    } 
-    i++;
-  }
-
-  while(!pilha_vazia(expressao)) {
-    pop(&expressao, (void **) &x, TIPO_CHAR);
-    formula_pos[i] = *x;
-    i++;
-  }
-
-  libera_pilha(&expressao);
-  return 1;
 }
 */
 
@@ -204,8 +166,8 @@ int resolve_posfixa (char formula_pos_fixa[], double literais[], double *respost
       push(&nova_pilha, (void *) d, TIPO_DOUBLE);
     }
     if (eh_operador(c)) {
-      pop(&nova_pilha, (void **) &p_double_ant, TIPO_DOUBLE);
-      pop(&nova_pilha, (void **) &p_double_ant_ant, TIPO_DOUBLE);
+      pop(&nova_pilha, (void **) &p_double_ant);
+      pop(&nova_pilha, (void **) &p_double_ant_ant);
 
 
       double *resultado; // alocar porque é guardado a referencia!
@@ -219,12 +181,11 @@ int resolve_posfixa (char formula_pos_fixa[], double literais[], double *respost
       // desaloca porque deu pop
       free(p_double_ant); p_double_ant = NULL;
       free(p_double_ant_ant); p_double_ant_ant = NULL;
-    }
 
     i++;
   }
 
-  pop(&nova_pilha, (void **) &p_double_ant, TIPO_DOUBLE);
+  pop(&nova_pilha, (void **) &p_double_ant);
   *resposta = *p_double_ant;
   libera_pilha(&nova_pilha);
 
